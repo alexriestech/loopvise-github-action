@@ -26,15 +26,17 @@ jobs:
           suite_id: ${{ inputs.suite_id }}
           space_id: ${{ inputs.space_id }}
           environment_id: ${{ inputs.environment_id }}
-          environment_url: https://platform.loopvise.com
-          environment_variables: ${{ toJSON(vars.MY_LOOPVISE_VARS) }}
+          environment_url: https://example.loopvise.test
+          environment_variables: '{"Email":"user@example.com","Password":"dummy-password"}'
+          browser: Chrome
+          triggered_by_user_id: 00000000-0000-4000-8000-000000000001
 ```
 
-For a literal JSON object in YAML, use a single-quoted string, for example `environment_variables: '{"Email":"user@example.com"}'`.
+Replace the dummy `environment_url`, `environment_variables`, `browser`, and `triggered_by_user_id` with your real values. For production secrets, use [encrypted secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) inside a JSON string instead of hard-coded passwords.
 
 Replace `alexriestech` / `main` with your fork and the ref you want.
 
-3. Optional inputs: `environment_id`, `environment_url`, `environment_variables` (single-line JSON object of string values, sent as `environmentUrl` / `environmentVariables` in the API body), `browser`, `triggered_by_user_id`, `api_base`, `poll_interval_seconds`, `timeout_minutes`. Prefer [encrypted secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) for sensitive variable values instead of hard-coding them in the workflow file.
+3. Optional inputs: `environment_id`, `environment_url`, `environment_variables` (single-line JSON object; values are sent as strings in `environmentUrl` / `environmentVariables` in the API body), `browser`, `triggered_by_user_id`, `api_base`, `poll_interval_seconds`, `timeout_minutes`.
 4. Output: `suite_run_id` (from the action step’s `outputs`).
 
 No API key is sent today; when Loopvise adds auth, this action will be extended to accept a secret and send the appropriate header.
