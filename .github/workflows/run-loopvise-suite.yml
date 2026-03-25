@@ -1,0 +1,42 @@
+name: Run Loopvise suite (example)
+
+on:
+  workflow_dispatch:
+    inputs:
+      suite_id:
+        description: Loopvise suite id
+        required: true
+        type: string
+      space_id:
+        description: Loopvise space id
+        required: true
+        type: string
+      environment_id:
+        description: Loopvise environment id
+        required: true
+        type: string
+      browser:
+        description: Optional browser
+        required: false
+        type: string
+        default: ''
+      triggered_by_user_id:
+        description: Optional triggered-by user id
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  loopvise:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: suite
+        uses: ./
+        with:
+          suite_id: ${{ inputs.suite_id }}
+          space_id: ${{ inputs.space_id }}
+          environment_id: ${{ inputs.environment_id }}
+          browser: ${{ inputs.browser }}
+          triggered_by_user_id: ${{ inputs.triggered_by_user_id }}
+      - run: echo "suite_run_id=${{ steps.suite.outputs.suite_run_id }}"

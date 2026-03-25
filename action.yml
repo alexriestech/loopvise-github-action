@@ -1,0 +1,51 @@
+name: Run Loopvise suite
+description: Starts a Loopvise suite run via the platform API and waits until runs finish.
+inputs:
+  suite_id:
+    description: Loopvise suite id
+    required: true
+  space_id:
+    description: Loopvise space id
+    required: true
+  environment_id:
+    description: Loopvise environment id
+    required: true
+  browser:
+    description: Optional browser identifier
+    required: false
+    default: ''
+  triggered_by_user_id:
+    description: Optional user id recorded as the trigger
+    required: false
+    default: ''
+  api_base:
+    description: Loopvise API base URL
+    required: false
+    default: https://api.platform.loopvise.com
+  poll_interval_seconds:
+    description: Seconds between status polls
+    required: false
+    default: '15'
+  timeout_minutes:
+    description: Maximum minutes to wait for the suite
+    required: false
+    default: '30'
+outputs:
+  suite_run_id:
+    description: Suite run id returned by POST /suites/run
+    value: ${{ steps.invoke.outputs.suite_run_id }}
+runs:
+  using: composite
+  steps:
+    - id: invoke
+      run: bash "$GITHUB_ACTION_PATH/run-suite.sh"
+      shell: bash
+      env:
+        SUITE_ID: ${{ inputs.suite_id }}
+        SPACE_ID: ${{ inputs.space_id }}
+        ENVIRONMENT_ID: ${{ inputs.environment_id }}
+        BROWSER: ${{ inputs.browser }}
+        TRIGGERED_BY_USER_ID: ${{ inputs.triggered_by_user_id }}
+        API_BASE: ${{ inputs.api_base }}
+        POLL_INTERVAL_SECONDS: ${{ inputs.poll_interval_seconds }}
+        TIMEOUT_MINUTES: ${{ inputs.timeout_minutes }}
