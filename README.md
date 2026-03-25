@@ -1,6 +1,8 @@
 # loopvise-github-action
 
-Composite action that calls Loopvise `POST /suites/run`, polls `POST /suites/run/status`, and fails the job if any run is failed/error/cancelled or any check has `succeeded: false`.
+Node.js action that calls Loopvise `POST /suites/run`, polls `POST /suites/run/status`, and fails the job if any run is failed/error/cancelled or any check has `succeeded: false`.
+
+While the job runs, it refreshes the workflow **Summary** (open the run, then the **Summary** tab) with a table of tests, statuses, and **Open** links to each run’s `runs_page_url`.
 
 ## Use in another repository
 
@@ -33,9 +35,13 @@ Replace `alexriestech` / `main` with your fork and the ref you want.
 
 No API key is sent today; when Loopvise adds auth, this action will be extended to accept a secret and send the appropriate header.
 
+## Developing this action
+
+After changing `src/index.ts`, run `npm ci` and `npm run build`, then commit the updated `dist/index.js`.
+
 ## Try it in this repository
 
-Actions → **Run Loopvise suite (example)** → **Run workflow** → fill `suite_id`, `space_id`, and optionally `environment_id`.
+Actions → **Run Loopvise suite (example)** → **Run workflow** → fill `suite_id`, `space_id`, and optionally `environment_id`. Inspect the **Summary** tab on the run for the live table.
 
 ## Publish for others
 
