@@ -13,7 +13,7 @@ on:
     inputs:
       suite_id: { required: true, type: string }
       space_id: { required: true, type: string }
-      environment_id: { required: true, type: string }
+      environment_id: { required: false, type: string, default: '' }
 
 jobs:
   suite:
@@ -28,14 +28,14 @@ jobs:
 
 Replace `alexriestech` / `main` with your fork and the ref you want.
 
-3. Optional inputs: `browser`, `triggered_by_user_id`, `api_base`, `poll_interval_seconds`, `timeout_minutes`.
+3. Optional inputs: `environment_id`, `browser`, `triggered_by_user_id`, `api_base`, `poll_interval_seconds`, `timeout_minutes`.
 4. Output: `suite_run_id` (from the action step’s `outputs`).
 
 No API key is sent today; when Loopvise adds auth, this action will be extended to accept a secret and send the appropriate header.
 
 ## Try it in this repository
 
-Actions → **Run Loopvise suite (example)** → **Run workflow** → fill `suite_id`, `space_id`, `environment_id`.
+Actions → **Run Loopvise suite (example)** → **Run workflow** → fill `suite_id`, `space_id`, and optionally `environment_id`.
 
 ## Publish for others
 

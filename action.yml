@@ -8,8 +8,9 @@ inputs:
     description: Loopvise space id
     required: true
   environment_id:
-    description: Loopvise environment id
-    required: true
+    description: Loopvise environment id (omit from API request when empty)
+    required: false
+    default: ''
   browser:
     description: Optional browser identifier
     required: false

@@ -9,9 +9,9 @@ BODY=$(jq -n \
   --arg triggeredByUserId "$TRIGGERED_BY_USER_ID" \
   '{
     suiteId: $suiteId,
-    spaceId: $spaceId,
-    environmentId: $environmentId
+    spaceId: $spaceId
   }
+  | if $environmentId != "" then . + {environmentId: $environmentId} else . end
   | if $browser != "" then . + {browser: $browser} else . end
   | if $triggeredByUserId != "" then . + {triggeredByUserId: $triggeredByUserId} else . end')
 

@@ -12,9 +12,10 @@ on:
         required: true
         type: string
       environment_id:
-        description: Loopvise environment id
-        required: true
+        description: Loopvise environment id (optional)
+        required: false
         type: string
+        default: ''
       browser:
         description: Optional browser
         required: false
