@@ -88,6 +88,8 @@ async function run(): Promise<void> {
   const suiteId = core.getInput('suite_id', { required: true });
   const spaceId = core.getInput('space_id', { required: true });
   const environmentId = core.getInput('environment_id');
+  const environmentUrl = core.getInput('environment_url');
+  const environmentVariablesJson = core.getInput('environment_variables');
   const browser = core.getInput('browser');
   const triggeredByUserId = core.getInput('triggered_by_user_id');
   const apiBase = core.getInput('api_base');
@@ -99,11 +101,22 @@ async function run(): Promise<void> {
     suiteId: string;
     spaceId: string;
     environmentId?: string;
+    environmentUrl?: string;
+    environmentVariables?: Record<string, string>;
     browser?: string;
     triggeredByUserId?: string;
   } = { suiteId, spaceId };
   if (environmentId !== '') {
     body.environmentId = environmentId;
+  }
+  if (environmentUrl !== '') {
+    body.environmentUrl = environmentUrl;
+  }
+  if (environmentVariablesJson !== '') {
+    const parsed = JSON.parse(environmentVariablesJson) as Record<string, unknown>;
+    body.environmentVariables = Object.fromEntries(
+      Object.entries(parsed).map(([key, value]) => [key, String(value)]),
+    );
   }
   if (browser !== '') {
     body.browser = browser;

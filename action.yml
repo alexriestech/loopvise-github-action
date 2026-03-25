@@ -14,6 +14,14 @@ inputs:
     description: Loopvise environment id (omit from API request when empty)
     required: false
     default: ''
+  environment_url:
+    description: Environment base URL or host passed to the API (omit when empty)
+    required: false
+    default: ''
+  environment_variables:
+    description: JSON object of string keys and string values sent as environmentVariables (omit when empty)
+    required: false
+    default: ''
   browser:
     description: Optional browser identifier
     required: false

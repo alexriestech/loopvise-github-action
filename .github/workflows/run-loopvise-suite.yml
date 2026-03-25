@@ -26,6 +26,16 @@ on:
         required: false
         type: string
         default: ''
+      environment_url:
+        description: Optional environment URL or host
+        required: false
+        type: string
+        default: ''
+      environment_variables:
+        description: Optional JSON object string for environment variables
+        required: false
+        type: string
+        default: ''
 
 jobs:
   loopvise:
@@ -38,6 +48,8 @@ jobs:
           suite_id: ${{ inputs.suite_id }}
           space_id: ${{ inputs.space_id }}
           environment_id: ${{ inputs.environment_id }}
+          environment_url: ${{ inputs.environment_url }}
+          environment_variables: ${{ inputs.environment_variables }}
           browser: ${{ inputs.browser }}
           triggered_by_user_id: ${{ inputs.triggered_by_user_id }}
       - run: echo "suite_run_id=${{ steps.suite.outputs.suite_run_id }}"
