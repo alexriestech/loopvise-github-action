@@ -1,5 +1,7 @@
 # loopvise-github-action
 
+![Loopvise](branding/icon.png)
+
 Composite action that calls Loopvise `POST /suites/run`, polls `POST /suites/run/status`, and fails the job if any run is failed/error/cancelled or any check has `succeeded: false`.
 
 ## Use in another repository
